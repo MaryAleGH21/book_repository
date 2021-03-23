@@ -1,6 +1,6 @@
 class BooksController < ApplicationController
   before_action :set_book, only: %i[ show edit update destroy ]
-
+  before_action :set_authors, :set_states, only: %i[new edit]
   # GET /books or /books.json
   def index
     @books = Book.all
@@ -13,12 +13,10 @@ class BooksController < ApplicationController
   # GET /books/new
   def new
     @book = Book.new
-    @authors = Author.all
   end
 
   # GET /books/1/edit
   def edit
-    @authors = Author.all
   end
 
   # POST /books or /books.json
@@ -62,6 +60,14 @@ class BooksController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_book
       @book = Book.find(params[:id])
+    end
+
+    def set_authors
+      @authors = Author.all
+    end
+
+    def set_states 
+    @states = Book.states.map{|k,v|[k,k]}
     end
 
     # Only allow a list of trusted parameters through.
