@@ -13,10 +13,12 @@ class BooksController < ApplicationController
   # GET /books/new
   def new
     @book = Book.new
+    @authors = Author.all
   end
 
   # GET /books/1/edit
   def edit
+    @authors = Author.all
   end
 
   # POST /books or /books.json
@@ -64,6 +66,6 @@ class BooksController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def book_params
-      params.require(:book).permit(:title, :edition, :publisher, :isbn, :state)
+      params.require(:book).permit(:title, :edition, :publisher, :isbn, :state, author_ids: [])
     end
 end

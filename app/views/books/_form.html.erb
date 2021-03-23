@@ -36,6 +36,15 @@
     <%= form.number_field :state %>
   </div>
 
+  <div class="field">
+    <ul>
+    <%= form.collection_check_boxes(:author_ids, @authors, :id, :name, include_hidden: false) do |b|
+    b.label("data-value": b.value) {b.check_box + b.text}
+    end %>
+    </ul>
+  
+  </div>
+
   <div class="actions">
     <%= form.submit %>
   </div>
