@@ -1,6 +1,8 @@
 class BooksController < ApplicationController
   before_action :set_book, only: %i[ show edit update destroy ]
   before_action :set_authors, :set_states, only: %i[new edit]
+  before_action :set_loaned_users, only: %i[ show ]
+
   # GET /books or /books.json
   def index
     @books = Book.all
@@ -68,6 +70,10 @@ class BooksController < ApplicationController
 
     def set_states 
     @states = Book.states.map{|k,v|[k,k]}
+    end
+
+    def set_loaned_users
+      @loaned_users = User.where(id: @book.loans.active.pluck(:user_id))
     end
 
     # Only allow a list of trusted parameters through.
